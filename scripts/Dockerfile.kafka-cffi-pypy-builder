@@ -1,7 +1,6 @@
-FROM quay.io/wenxiang/pypy-wheel-builder
+FROM pypywheels/manylinux2010-pypy_x86_64:latest
 
 COPY scripts/install-libs.sh /tmp
 RUN /tmp/install-libs.sh
 
 WORKDIR /app
-
