@@ -9,8 +9,8 @@ matrix:
         - docker
       env:
         CIBW_SKIP="*-manylinux1_i686"
-        CIBW_MANYLINUX_X86_64_IMAGE="quay.io/hyperair/kafka-cffi-manylinux-builder"
-        CIBW_MANYLINUX_PYPY_X86_64_IMAGE="quay.io/hyperair/kafka-cffi-manylinux-builder"
+        CIBW_MANYLINUX_X86_64_IMAGE="quay.io/hyperair/kafka-cffi-manylinux-builder:manylinux-upgrade"
+        CIBW_MANYLINUX_PYPY_X86_64_IMAGE="quay.io/hyperair/kafka-cffi-manylinux-builder:manylinux-upgrade"
 
 install:
   - pip install twine cibuildwheel==0.12.0
