@@ -1,4 +1,4 @@
-FROM quay.io/pypa/manylinux1_x86_64
+FROM pypywheels/manylinux2010-pypy_x86_64
 
 COPY scripts/install-libs.sh /tmp
 RUN /tmp/install-libs.sh

@@ -9,7 +9,8 @@ matrix:
         - docker
       env:
         CIBW_SKIP="*-manylinux1_i686"
-        CIBW_MANYLINUX1_X86_64_IMAGE="quay.io/wenxiang/kafka-cffi-manylinux-builder"
+        CIBW_MANYLINUX_X86_64_IMAGE="quay.io/hyperair/kafka-cffi-manylinux-builder"
+        CIBW_MANYLINUX_PYPY_X86_64_IMAGE="quay.io/hyperair/kafka-cffi-manylinux-builder"
 
 install:
   - pip install twine cibuildwheel==0.12.0
@@ -21,13 +22,11 @@ install:
   - docker commit kafka-cffi-manylinux-builder "$CIBW_MANYLINUX1_X86_64_IMAGE"
 
 script:
-  - docker run --rm -w /app -v $PWD:/app
-    quay.io/wenxiang/kafka-cffi-pypy-builder scripts/build-wheels.sh
   - cibuildwheel --output-dir wheelhouse
   - sudo chown -R $(id -u):$(id -g) .
   - python setup.py sdist
-  - ls -la wheelhouse/*.whl pypy-wheelhouse/*.whl dist/*.tar.gz
-  - wheel_versions=($(ls -1 wheelhouse/*.whl pypy-wheelhouse/*.whl |
+  - ls -la wheelhouse/*.whl dist/*.tar.gz
+  - wheel_versions=($(ls -1 wheelhouse/*.whl |
                        sed -re 's/.*kafka_cffi-([^-]+)-(pp|cp)[0-9]+.*/\1/' |
                        sort -u))
   - if [[ ${#wheel_versions[@]} -gt 1 ]]; then
